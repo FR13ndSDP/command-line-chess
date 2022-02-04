@@ -1,5 +1,4 @@
 class Move:
-
     def __init__(self, piece, newPos, pieceToCapture=None):
         self.notation = None
         self.check = False
@@ -20,25 +19,35 @@ class Move:
         self.rookMove = None
 
     def __str__(self):
-        displayString = 'Old pos : ' + str(self.oldPos) + \
-                        ' -- New pos : ' + str(self.newPos)
+        displayString = (
+            "Old pos : " + str(self.oldPos) + " -- New pos : " + str(self.newPos)
+        )
         if self.notation:
-            displayString += ' Notation : ' + self.notation
+            displayString += " Notation : " + self.notation
         if self.passant:
-            displayString = 'Old pos : ' + str(self.oldPos) + \
-                            ' -- New pos : ' + str(self.newPos) + \
-                            ' -- Pawn taken : ' + str(self.specialMovePiece)
-            displayString += ' PASSANT'
+            displayString = (
+                "Old pos : "
+                + str(self.oldPos)
+                + " -- New pos : "
+                + str(self.newPos)
+                + " -- Pawn taken : "
+                + str(self.specialMovePiece)
+            )
+            displayString += " PASSANT"
         return displayString
 
     def __eq__(self, other):
-        if self.oldPos == other.oldPos and \
-           self.newPos == other.newPos and \
-           self.specialMovePiece == other.specialMovePiece:
+        if (
+            self.oldPos == other.oldPos
+            and self.newPos == other.newPos
+            and self.specialMovePiece == other.specialMovePiece
+        ):
             if not self.specialMovePiece:
                 return True
-            if self.specialMovePiece and \
-               self.specialMovePiece == other.specialMovePiece:
+            if (
+                self.specialMovePiece
+                and self.specialMovePiece == other.specialMovePiece
+            ):
                 return True
             else:
                 return False
@@ -49,5 +58,4 @@ class Move:
         return hash((self.oldPos, self.newPos))
 
     def reverse(self):
-        return Move(self.piece, self.piece.position,
-                    pieceToCapture=self.pieceToCapture)
+        return Move(self.piece, self.piece.position, pieceToCapture=self.pieceToCapture)

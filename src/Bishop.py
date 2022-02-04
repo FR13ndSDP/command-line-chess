@@ -5,9 +5,9 @@ WHITE = True
 BLACK = False
 
 
-class Bishop (Piece):
+class Bishop(Piece):
 
-    stringRep = 'B'
+    stringRep = "B"
     value = 3
 
     def __init__(self, board, side, position, movesMade=0):
@@ -18,6 +18,7 @@ class Bishop (Piece):
         currentPosition = self.position
         directions = [C(1, 1), C(1, -1), C(-1, 1), C(-1, -1)]
         for direction in directions:
-            for move in self.movesInDirectionFromPos(currentPosition,
-                                                     direction, self.side):
+            for move in self.movesInDirectionFromPos(
+                currentPosition, direction, self.side
+            ):
                 yield move

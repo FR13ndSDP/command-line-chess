@@ -8,7 +8,6 @@ Y = 1
 
 
 class Piece:
-
     def __init__(self, board, side, position, movesMade=0):
         self.board = board
         self.side = side
@@ -16,12 +15,19 @@ class Piece:
         self.movesMade = 0
 
     def __str__(self):
-        sideString = 'White' if self.side == WHITE else 'Black'
-        return 'Type : ' + type(self).__name__ + \
-               ' - Position : ' + str(self.position) + \
-               " - Side : " + sideString + \
-               ' -- Value : ' + str(self.value) + \
-               " -- Moves made : " + str(self.movesMade)
+        sideString = "White" if self.side == WHITE else "Black"
+        return (
+            "Type : "
+            + type(self).__name__
+            + " - Position : "
+            + str(self.position)
+            + " - Side : "
+            + sideString
+            + " -- Value : "
+            + str(self.value)
+            + " -- Moves made : "
+            + str(self.movesMade)
+        )
 
     def movesInDirectionFromPos(self, pos, direction, side):
         for dis in range(1, 8):
@@ -38,14 +44,17 @@ class Piece:
                     return
 
     def __eq__(self, other):
-        if self.board == other.board and \
-           self.side == other.side and \
-           self.position == other.position and \
-           self.__class__ == other.__class__:
+        if (
+            self.board == other.board
+            and self.side == other.side
+            and self.position == other.position
+            and self.__class__ == other.__class__
+        ):
             return True
         return False
 
     def copy(self):
-        cpy = self.__class__(self.board, self.side, self.position,
-                             movesMade=self.movesMade)
+        cpy = self.__class__(
+            self.board, self.side, self.position, movesMade=self.movesMade
+        )
         return cpy

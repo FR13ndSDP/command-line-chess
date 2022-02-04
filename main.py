@@ -10,9 +10,8 @@ BLACK = False
 
 
 def askForPlayerSide():
-    playerChoiceInput = input(
-        "What side would you like to play as [wB]? ").lower()
-    if 'w' in playerChoiceInput:
+    playerChoiceInput = input("What side would you like to play as [wB]? ").lower()
+    if "w" in playerChoiceInput:
         print("You will play as white")
         return WHITE
     else:
@@ -23,14 +22,22 @@ def askForPlayerSide():
 def askForDepthOfAI():
     depthInput = 2
     try:
-        depthInput = int(input("How deep should the AI look for moves?\n"
-                               "Warning : values above 3 will be very slow."
-                               " [2]? "))
-        while depthInput<=0:
-             depthInput = int(input("How deep should the AI look for moves?\n"
-                               "Warning : values above 3 will be very slow. "
-                               "Your input must be above 0."
-                               " [2]? "))
+        depthInput = int(
+            input(
+                "How deep should the AI look for moves?\n"
+                "Warning : values above 3 will be very slow."
+                " [2]? "
+            )
+        )
+        while depthInput <= 0:
+            depthInput = int(
+                input(
+                    "How deep should the AI look for moves?\n"
+                    "Warning : values above 3 will be very slow. "
+                    "Your input must be above 0."
+                    " [2]? "
+                )
+            )
 
     except KeyboardInterrupt:
         sys.exit()
@@ -40,14 +47,20 @@ def askForDepthOfAI():
 
 
 def printCommandOptions():
-    undoOption = 'u : undo last move'
-    printLegalMovesOption = 'l : show all legal moves'
-    randomMoveOption = 'r : make a random move'
-    quitOption = 'quit : resign'
-    moveOption = 'a3, Nc3, Qxa2, etc : make the move'
-    options = [undoOption, printLegalMovesOption, randomMoveOption,
-               quitOption, moveOption, '', ]
-    print('\n'.join(options))
+    undoOption = "u : undo last move"
+    printLegalMovesOption = "l : show all legal moves"
+    randomMoveOption = "r : make a random move"
+    quitOption = "quit : resign"
+    moveOption = "a3, Nc3, Qxa2, etc : make the move"
+    options = [
+        undoOption,
+        printLegalMovesOption,
+        randomMoveOption,
+        quitOption,
+        moveOption,
+        "",
+    ]
+    print("\n".join(options))
 
 
 def printAllLegalMoves(board, parser):
@@ -68,8 +81,10 @@ def makeMove(move, board):
 
 
 def printPointAdvantage(board):
-    print("Currently, the point difference is : " +
-          str(board.getPointAdvantageOfSide(board.currentSide)))
+    print(
+        "Currently, the point difference is : "
+        + str(board.getPointAdvantageOfSide(board.currentSide))
+    )
 
 
 def undoLastTwoMoves(board):
@@ -101,20 +116,19 @@ def startGame(board, playerSide, ai):
         if board.currentSide == playerSide:
             # printPointAdvantage(board)
             move = None
-            command = input("It's your move."
-                            " Type '?' for options. ? ")
-            if command.lower() == 'u':
+            command = input("It's your move." " Type '?' for options. ? ")
+            if command.lower() == "u":
                 undoLastTwoMoves(board)
                 continue
-            elif command.lower() == '?':
+            elif command.lower() == "?":
                 printCommandOptions()
                 continue
-            elif command.lower() == 'l':
+            elif command.lower() == "l":
                 printAllLegalMoves(board, parser)
                 continue
-            elif command.lower() == 'r':
+            elif command.lower() == "r":
                 move = getRandomMove(board, parser)
-            elif command.lower() == 'exit' or command.lower() == 'quit':
+            elif command.lower() == "exit" or command.lower() == "quit":
                 return
             try:
                 move = parser.parse(command)
@@ -128,6 +142,7 @@ def startGame(board, playerSide, ai):
             move = ai.getBestMove()
             move.notation = parser.notationForMove(move)
             makeMove(move, board)
+
 
 def twoPlayerGame(board):
     parserWhite = InputParser(board, WHITE)
@@ -150,20 +165,22 @@ def twoPlayerGame(board):
         else:
             parser = parserBlack
         move = None
-        command = input("It's your move, {}.".format(board.currentSideRep()) + \
-                        " Type '?' for options. ? ")
-        if command.lower() == 'u':
+        command = input(
+            "It's your move, {}.".format(board.currentSideRep())
+            + " Type '?' for options. ? "
+        )
+        if command.lower() == "u":
             undoLastTwoMoves(board)
             continue
-        elif command.lower() == '?':
+        elif command.lower() == "?":
             printCommandOptions()
             continue
-        elif command.lower() == 'l':
+        elif command.lower() == "l":
             printAllLegalMoves(board, parser)
             continue
-        elif command.lower() == 'r':
+        elif command.lower() == "r":
             move = getRandomMove(board, parser)
-        elif command.lower() == 'exit' or command.lower() == 'quit':
+        elif command.lower() == "exit" or command.lower() == "quit":
             return
         try:
             move = parser.parse(command)
@@ -174,6 +191,7 @@ def twoPlayerGame(board):
 
 
 board = Board()
+
 
 def main():
     try:
@@ -187,6 +205,7 @@ def main():
             startGame(board, playerSide, opponentAI)
     except KeyboardInterrupt:
         sys.exit()
+
 
 if __name__ == "__main__":
     main()

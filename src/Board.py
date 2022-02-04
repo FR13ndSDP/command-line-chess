@@ -13,9 +13,9 @@ BLACK = False
 
 
 class Board:
-
-    def __init__(self, mateInOne=False, castleBoard=False,
-                 passant=False, promotion=False):
+    def __init__(
+        self, mateInOne=False, castleBoard=False, passant=False, promotion=False
+    ):
         self.pieces = []
         self.history = []
         self.points = 0
@@ -24,26 +24,34 @@ class Board:
         self.checkmate = False
 
         if not mateInOne and not castleBoard and not passant and not promotion:
-            self.pieces.extend([Rook(self, BLACK, C(0, 7)),
-                                Knight(self, BLACK, C(1, 7)),
-                                Bishop(self, BLACK, C(2, 7)),
-                                Queen(self, BLACK, C(3, 7)),
-                                King(self, BLACK, C(4, 7)),
-                                Bishop(self, BLACK, C(5, 7)),
-                                Knight(self, BLACK, C(6, 7)),
-                                Rook(self, BLACK, C(7, 7))])
+            self.pieces.extend(
+                [
+                    Rook(self, BLACK, C(0, 7)),
+                    Knight(self, BLACK, C(1, 7)),
+                    Bishop(self, BLACK, C(2, 7)),
+                    Queen(self, BLACK, C(3, 7)),
+                    King(self, BLACK, C(4, 7)),
+                    Bishop(self, BLACK, C(5, 7)),
+                    Knight(self, BLACK, C(6, 7)),
+                    Rook(self, BLACK, C(7, 7)),
+                ]
+            )
             for x in range(8):
                 self.pieces.append(Pawn(self, BLACK, C(x, 6)))
             for x in range(8):
                 self.pieces.append(Pawn(self, WHITE, C(x, 1)))
-            self.pieces.extend([Rook(self, WHITE, C(0, 0)),
-                                Knight(self, WHITE, C(1, 0)),
-                                Bishop(self, WHITE, C(2, 0)),
-                                Queen(self, WHITE, C(3, 0)),
-                                King(self, WHITE, C(4, 0)),
-                                Bishop(self, WHITE, C(5, 0)),
-                                Knight(self, WHITE, C(6, 0)),
-                                Rook(self, WHITE, C(7, 0))])
+            self.pieces.extend(
+                [
+                    Rook(self, WHITE, C(0, 0)),
+                    Knight(self, WHITE, C(1, 0)),
+                    Bishop(self, WHITE, C(2, 0)),
+                    Queen(self, WHITE, C(3, 0)),
+                    King(self, WHITE, C(4, 0)),
+                    Bishop(self, WHITE, C(5, 0)),
+                    Knight(self, WHITE, C(6, 0)),
+                    Rook(self, WHITE, C(7, 0)),
+                ]
+            )
 
         elif promotion:
             pawnToPromote = Pawn(self, WHITE, C(1, 6))
@@ -166,9 +174,9 @@ class Board:
 
     def getCurrentSide(self):
         return self.currentSide
-    
+
     def makeStringRep(self, pieces):
-        stringRep = ''
+        stringRep = ""
         for y in range(7, -1, -1):
             for x in range(8):
                 piece = None
@@ -176,28 +184,28 @@ class Board:
                     if p.position == C(x, y):
                         piece = p
                         break
-                pieceRep = ''
+                pieceRep = ""
                 if piece:
                     side = piece.side
-                    color = 'blue' if side == WHITE else 'red'
+                    color = "blue" if side == WHITE else "red"
                     pieceRep = colored(piece.stringRep, color)
                 else:
-                    pieceRep = '·'
-                stringRep += pieceRep + ' '
-            stringRep += '\n'
+                    pieceRep = "·"
+                stringRep += pieceRep + " "
+            stringRep += "\n"
         return stringRep.rstrip()
-    
+
     def makeUnicodeStringRep(self, pieces):
         DISPLAY_LOOKUP = {
-            "R": '♜',
-            "N": '♞',
-            "B": '♝',
-            "K": '♚',	
-            "Q": '♛',
-            "P": '♟',
+            "R": "♜",
+            "N": "♞",
+            "B": "♝",
+            "K": "♚",
+            "Q": "♛",
+            "P": "♟",
         }
 
-        stringRep = ''
+        stringRep = ""
         for y in range(7, -1, -1):
             for x in range(8):
                 piece = None
@@ -205,29 +213,33 @@ class Board:
                     if p.position == C(x, y):
                         piece = p
                         break
-                on_color = 'on_cyan' if y % 2 == x % 2 else 'on_yellow'
-                pieceRep = colored('  ', on_color=on_color)
+                on_color = "on_cyan" if y % 2 == x % 2 else "on_yellow"
+                pieceRep = colored("  ", on_color=on_color)
                 if piece:
                     side = piece.side
-                    color = 'white' if side == WHITE else 'grey'
-                    pieceRep = colored(piece.stringRep + ' ', color=color, on_color=on_color)
+                    color = "white" if side == WHITE else "grey"
+                    pieceRep = colored(
+                        piece.stringRep + " ", color=color, on_color=on_color
+                    )
                 stringRep += pieceRep
-            stringRep += '\n'
+            stringRep += "\n"
         return stringRep.rstrip()
 
     def wrapStringRep(self, stringRep):
-        sRep = '\n'.join(
-            ['%d  %s' % (8-r, s.rstrip())
-             for r, s in enumerate(stringRep.split('\n'))] +
-            [' '*21, '   a b c d e f g h']
-            ).rstrip()
+        sRep = "\n".join(
+            [
+                "%d  %s" % (8 - r, s.rstrip())
+                for r, s in enumerate(stringRep.split("\n"))
+            ]
+            + [" " * 21, "   a b c d e f g h"]
+        ).rstrip()
         return sRep
 
     def rankOfPiece(self, piece):
         return str(piece.position[1] + 1)
 
     def fileOfPiece(self, piece):
-        transTable = str.maketrans('01234567', 'abcdefgh')
+        transTable = str.maketrans("01234567", "abcdefgh")
         return str(piece.position[0]).translate(transTable)
 
     def getCoordinateNotationOfMove(self, move):
@@ -249,7 +261,7 @@ class Board:
             notation += self.fileOfPiece(pieceToMove)
         else:
             notation += pieceToMove.stringRep
-        notation += 'x'
+        notation += "x"
         if short:
             notation += pieceToTake.stringRep
         else:
@@ -280,7 +292,7 @@ class Board:
         if pieceToTake is not None:
             if short and type(pieceToMove) is Pawn:
                 notation += self.fileOfPiece(pieceToMove)
-            notation += 'x'
+            notation += "x"
 
         notation += self.positionToHumanCoord(move.newPos)
 
@@ -300,7 +312,7 @@ class Board:
         notation += self.fileOfPiece(pieceToMove)
 
         if pieceToTake is not None:
-            notation += 'x'
+            notation += "x"
 
         notation += self.positionToHumanCoord(move.newPos)
         return notation
@@ -319,7 +331,7 @@ class Board:
         if pieceToTake is not None:
             if short and type(pieceToMove) is Pawn:
                 notation += self.fileOfPiece(pieceToMove)
-            notation += 'x'
+            notation += "x"
 
         notation += self.positionToHumanCoord(move.newPos)
         return notation
@@ -337,21 +349,21 @@ class Board:
         notation += self.rankOfPiece(pieceToMove)
 
         if pieceToTake is not None:
-            notation += 'x'
+            notation += "x"
 
         notation += self.positionToHumanCoord(move.newPos)
         return notation
 
     def humanCoordToPosition(self, coord):
-        transTable = str.maketrans('abcdefgh', '12345678')
+        transTable = str.maketrans("abcdefgh", "12345678")
         coord = coord.translate(transTable)
-        coord = [int(c)-1 for c in coord]
+        coord = [int(c) - 1 for c in coord]
         pos = C(coord[0], coord[1])
         return pos
 
     def positionToHumanCoord(self, pos):
-        transTable = str.maketrans('01234567', 'abcdefgh')
-        notation = str(pos[0]).translate(transTable) + str(pos[1]+1)
+        transTable = str.maketrans("01234567", "abcdefgh")
+        notation = str(pos[0]).translate(transTable) + str(pos[1] + 1)
         return notation
 
     def isValidPos(self, pos):
@@ -367,7 +379,7 @@ class Board:
         for y in range(8):
             for x in range(8):
                 if self.boardArray[y][x] is piece:
-                    return C(x, 7-y)
+                    return C(x, 7 - y)
 
     def pieceAtPosition(self, pos):
         for piece in self.pieces:
@@ -385,10 +397,10 @@ class Board:
         self.boardArray[x][y] = None
 
     def coordToLocationInArray(self, pos):
-        return (7-pos[1], pos[0])
+        return (7 - pos[1], pos[0])
 
     def locationInArrayToCoord(self, loc):
-        return (loc[1], 7-loc[0])
+        return (loc[1], 7 - loc[0])
 
     def makeMove(self, move):
         self.addMoveToHistory(move)
@@ -448,8 +460,9 @@ class Board:
         return points
 
     def getPointAdvantageOfSide(self, side):
-        pointAdvantage = self.getPointValueOfSide(side) - \
-            self.getPointValueOfSide(not side)
+        pointAdvantage = self.getPointValueOfSide(side) - self.getPointValueOfSide(
+            not side
+        )
         return pointAdvantage
         if side == WHITE:
             return self.points
@@ -460,7 +473,7 @@ class Board:
         unfilteredMoves = []
         for piece in self.pieces:
             if piece.side == side:
-                if includeKing or piece.stringRep != 'K':
+                if includeKing or piece.stringRep != "K":
                     for move in piece.getPossibleMoves():
                         unfilteredMoves.append(move)
         return unfilteredMoves
@@ -468,7 +481,7 @@ class Board:
     def testIfLegalBoard(self, side):
         for move in self.getAllMovesUnfiltered(side):
             pieceToTake = move.pieceToCapture
-            if pieceToTake and pieceToTake.stringRep == 'K':
+            if pieceToTake and pieceToTake.stringRep == "K":
                 return False
         return True
 

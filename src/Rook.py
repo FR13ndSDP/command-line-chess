@@ -5,12 +5,12 @@ WHITE = True
 BLACK = False
 
 
-class Rook (Piece):
+class Rook(Piece):
 
-    stringRep = 'R'
+    stringRep = "R"
     value = 5
 
-    def __init__(self, board, side, position,  movesMade=0):
+    def __init__(self, board, side, position, movesMade=0):
         super(Rook, self).__init__(board, side, position)
         self.movesMade = movesMade
 
@@ -19,6 +19,7 @@ class Rook (Piece):
 
         directions = [C(0, 1), C(0, -1), C(1, 0), C(-1, 0)]
         for direction in directions:
-            for move in self.movesInDirectionFromPos(currentPosition,
-                                                     direction, self.side):
+            for move in self.movesInDirectionFromPos(
+                currentPosition, direction, self.side
+            ):
                 yield move

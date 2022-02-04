@@ -1,5 +1,4 @@
 class Coordinate(tuple):
-
     def __new__(cls, *args):
         return tuple.__new__(cls, args)
 

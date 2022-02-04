@@ -1,5 +1,4 @@
 class MoveNode:
-
     def __init__(self, move, children, parent):
         self.move = move
         self.children = children
@@ -8,9 +7,14 @@ class MoveNode:
         self.depth = 1
 
     def __str__(self):
-        stringRep = "Move : " + str(self.move) + \
-                    " Point advantage : " + str(self.pointAdvantage) + \
-                    " Checkmate : " + str(self.move.checkmate)
+        stringRep = (
+            "Move : "
+            + str(self.move)
+            + " Point advantage : "
+            + str(self.pointAdvantage)
+            + " Checkmate : "
+            + str(self.move.checkmate)
+        )
         stringRep += "\n"
 
         for child in self.children:
