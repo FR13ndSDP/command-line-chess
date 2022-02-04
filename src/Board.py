@@ -6,7 +6,7 @@ from src.Move import Move
 from src.Pawn import Pawn
 from src.Queen import Queen
 from src.Rook import Rook
-from termcolor import colored
+from src.termcolor import colored
 
 WHITE = True
 BLACK = False
