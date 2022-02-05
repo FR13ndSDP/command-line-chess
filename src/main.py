@@ -1,9 +1,9 @@
 import random
 import sys
 
-from src.AI import AI
-from src.Board import Board
-from src.InputParser import InputParser
+from AI import AI
+from Board import Board
+from InputParser import InputParser
 
 WHITE = True
 BLACK = False

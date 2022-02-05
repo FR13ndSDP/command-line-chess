@@ -2,9 +2,9 @@ import copy
 import random
 from multiprocessing import Pool
 
-from src.Board import Board
-from src.InputParser import InputParser
-from src.MoveNode import MoveNode
+from Board import Board
+from InputParser import InputParser
+from MoveNode import MoveNode
 
 WHITE = True
 BLACK = False
@@ -21,6 +21,7 @@ class AI:
         self.board = board
         self.side = side
         self.depth = depth
+        # init parser
         self.parser = InputParser(self.board, self.side)
 
     def getFirstMove(self, side):

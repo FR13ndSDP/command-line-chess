@@ -1,6 +1,6 @@
-from src.Coordinate import Coordinate as C
-from src.Move import Move
-from src.Piece import Piece
+from Coordinate import Coordinate as C
+from Move import Move
+from Piece import Piece
 
 WHITE = True
 BLACK = False
